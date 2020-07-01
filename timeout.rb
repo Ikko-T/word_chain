@@ -1,3 +1,36 @@
+require 'timeout'
+
+Timeout.timeout(10.0) {|lim| "Time limit = #{lim}" }
+
+begin
+  Timeout.timeout(10.0) do
+    gets.chomp
+  end
+rescue
+  puts "ターイムアウト!!"
+end
+
+# require 'timers'
+
+# timers = Timers::Group.new
+# timer = timers.after(5)
+# puts "Start"
+# timers.wait
+# puts "Fin"
+
+# timers = Timers::Group.new
+# timer = timers.every(5) {puts "every"}
+
+# loop do
+#   interval = timers.wait_interval
+#   inputs = gets.chomp
+#   if inputs.empty?
+#     timers.fire
+#   else
+#     puts inputs
+#   end
+# end
+
 # input = gets
 # countdown = 10
 # while countdown > 0
