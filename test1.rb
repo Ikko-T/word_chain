@@ -1,11 +1,11 @@
-hiragana = /\A(?:\p{Hiragana}|[ー-]|)+\z/
+katakana = /\A(?:\p{Katakana}|[ー-]|)+\z/
 
-puts "ひらがなで入力してください"
+puts "カタカナで入力してください"
 input = gets.chomp
 
-if hiragana =~ input
+if katakana =~ input
     puts "#{input}"
 else
-    puts "入力値が不正です。ひらがなで入力してください"
+    puts "入力値が不正です。カタカナで入力してください"
 end
-puts "=" * 15
+puts "=" * 35
