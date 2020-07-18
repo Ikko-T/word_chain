@@ -1,20 +1,24 @@
 require_relative "app"
 require 'timeout'
-require 'pry'
+# require 'pry'
 
 katakana = /\A(?:\p{Katakana}|[ー-]|)+\z/
 countries = File.read("./country.rb")
 
-country = countries.split
-shisa_input = country.sample
-is_duplicate = []
-is_duplicate.unshift(shisa_input)
+# country = countries.split
+# shisa_input = country.sample
+# is_duplicate = []
+# is_duplicate.unshift(shisa_input)
 
 loop do
   user = ""
   Timeout.timeout(20.0) {|lim| "Time limit = #{lim}" }
   begin
     Timeout.timeout(20.0) do
+      country = countries.split
+      shisa_input = country.sample
+      is_duplicate = []
+      is_duplicate.unshift(shisa_input)
       puts "シーサー: #{shisa_input}"  
       shisa = shisa_input.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')
       puts "「#{shisa[-1]}」から始まる国名を入力して下さい。"

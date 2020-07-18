@@ -1,86 +1,121 @@
-# require_relative "app"
+require_relative "app"
 require 'timeout'
-countries = File.read("./country.rb")
-country = countries.split
+# require 'pry'
+
 katakana = /\A(?:\p{Katakana}|[ー-]|)+\z/
-Timeout.timeout(10.0) {|lim| "Time limit = #{lim}" }
 
-shisa_input = country.sample
-puts "シーサー:#{shisa_input}"
-puts "語尾が「ン」で終わってます。あなたの勝ちです！" if shisa_input[-1]  == "ン"
-puts "-" * 45
-
-answered_country_name = []
-answered_country_name.unshift(shisa_input)
-
-if answered_country_name.count - answered_country_name.uniq.count > 0
-  puts "回答済です。ゲーム終了！"
-  answered_country_name.shift
-else
-  shisa_input
-end
-
-loop do
-  print "あなた："
-  user_input = gets.chomp.to_s
-  if user_input =~ katakana
-    if shisa_input[-1] != user_input[0]
-      if country.find { |c| c == user_input }
-        if user_input[-1] == "ン"
-          puts "語尾が「ン」で終わっています。あなたの負けです！残念！"
-          exit
-        else
-          answered_country_name.unshift(user_input)
-          user_input
-          break
-        end
-      else
-        puts "そのような国名はありません。正しい国名を入力してください。"
-      end
-    else
-      puts "「#{shisa_input[-1]}」から始まる国名を入力してください。"
+class GameStart
+  def shisa_start
+    countries = File.read("./country.txt").split
+    shisa_input = countries.sample
+    is_duplicate = []
+    is_duplicate.unshift(shisa_input)
+    puts "シーサー: #{shisa_input}"
+    if shisa_input[-1]  == "ン"
+      puts "=" * 40
+      sleep 1.5
+      puts "語尾が「ン」で終わってます・・・。" 
+      puts "あなたの勝ちです!"
+      puts "=" * 40
+      exit
     end
-  else
-    puts "カタカナで入力して下さい。"
   end
 end
 
-# if user_input =~ katakana
-#   if country.find { |c| c == user_input }
-#     if user_input[-1] == "ン"
-#       puts "語尾が「ン」で終わってます。あなたの負けです！"
-#       exit
-#     else
-#       user_input
-#     end
-#   else
-#     puts "そのような国名はありません。正しい国名を入力してください。"
-#   end
-# else
-#   puts "カタカナで入力して下さい。"
-# end
+GameStart.shisa_start
 
+loop do
+  user = ""
+  Timeout.timeout(20.0) {|lim| "Time limit = #{lim}" }
+  begin
+    Timeout.timeout(20.0) do
+      shisa = shisa_input.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')
+      puts "「#{shisa[-1]}」から始まる国名を入力して下さい。"
+      puts "=" * 40
 
-# begin
-#   Timeout.timeout(10.0) do
-#     print "あなた："
-#     user_input = gets.chomp.to_s
-#     if user_input =~ katakana
-#       if country.find { |c| c == user_input }
-#         if user_input[-1] == "ン"
-#           puts "語尾が「ン」で終わってます。あなたの負けです！"
-#           exit
-#         else
-#           return user_input
-#         end
-#       else
-#         puts "そのような国名はありません。正しい国名を入力してください。"
-#       end
-#     else
-#       puts "カタカナで入力して下さい。"
-#     end
-#   end
-# rescue
-#   puts "ターイムアウト!!"
-#   exit
-# end
+      print "あなた: "
+      user_input = gets.chomp.to_s
+      puts "=" * 40
+      
+      unless user_input =~ katakana
+        puts "カタカナで入力してください。"
+        puts "=" * 40
+        redo unless user_input =~ katakana
+      end
+
+      unless shisa[-1] == user_input[0]
+        puts "しりとりができていません。"
+        puts "再度、入力してください。"
+        puts "=" * 40
+        redo unless shisa[-1] == user_input[0]
+      end
+
+      unless countries.find { |c| c == user_input }
+        puts "そのような国名はありません。"
+        puts "正しい国名を入力してください。"
+        puts "=" * 40
+        redo unless countries.find { |c| c == user_input}
+      end
+
+      unless user_input[-1] != "ン"
+        puts "語尾が「ン」で終わっています。"
+        puts "あなたの負けです！"
+        puts "=" * 40
+        exit
+      end
+
+      is_duplicate.unshift(user_input)
+      if is_duplicate.count - is_duplicate.uniq.count > 0
+        puts "すでに回答済です。"
+        puts "あなたの負けです！"
+        puts "=" * 40
+        exit
+      end
+
+      user = user_input.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')
+    end
+  rescue Timeout::Error
+    puts "ターイムアウト!"
+    sleep 1.0
+    puts "あなたの負けです！"
+    puts "=" * 40
+    $!
+    exit
+  end
+
+  begin
+    Timeout.timeout(20.0) do
+      shisa_choices = countries.select { |c| c[0] == user[-1] }
+      shisa_input = shisa_choices.sample
+      puts "シーサー考え中、、、"
+      print "シーサー: "
+      sleep(rand(1..22))
+      puts "#{shisa_input}"
+      puts "=" * 40
+
+      if shisa_input[-1] == "ン"
+        puts "語尾が「ン」で終わっています。"
+        sleep 1.0
+        puts "あなたの勝ちです！"
+        puts "=" * 40
+        exit
+      end
+
+      is_duplicate.unshift(shisa_input)
+      if is_duplicate.count - is_duplicate.uniq.count > 0
+        puts "すでに回答済です。"
+        sleep 1.0
+        puts "あなたの勝ちです！"
+        puts "=" * 40
+        exit
+      end
+    end
+  rescue Timeout::Error
+    puts "ターイムアウト!"
+    sleep 1.0
+    puts "あなたの勝ちです！"
+    puts "=" * 40
+    $!
+    exit
+  end
+end
