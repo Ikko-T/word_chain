@@ -1,7 +1,7 @@
 class User
   KATAKANA = /\A(?:\p{Katakana}|[ー-]|)+\z/
 
-  def turn
+  def action
     Timeout.timeout(20.0) {|lim| "Time limit = #{lim}" }
     begin
       Timeout.timeout(20.0) do

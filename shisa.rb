@@ -1,5 +1,26 @@
 class Shisa
-  def turn
+  def begin
+    @shisa_input = @countries.sample
+    is_duplicate = [@shisa_input]
+    puts "シーサー: #{@shisa_input}"
+    if @shisa_input[-1] == "ン"
+      sleep 1.5
+      puts "語尾が「ン」で終わってます・・・。" 
+      puts "あなたの勝ちです!"
+      puts "=" * 40
+      exit
+    end
+  end  
+
+  def action(count)
+    if count.zero?
+      # 最初
+      
+    else
+      # 2回目以降
+
+    end
+
     Timeout.timeout(20.0) {|lim| "Time limit = #{lim}" }
     begin
       Timeout.timeout(20.0) do
