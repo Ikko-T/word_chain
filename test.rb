@@ -1,6 +1,6 @@
 require_relative "app"
 require 'timeout'
-# require 'pry'
+require 'pry'
 
 katakana = /\A(?:\p{Katakana}|[ー-]|)+\z/
 countries = File.read("./country.rb")
