@@ -1,18 +1,16 @@
 class WordChain
   def initialize
-    @is_duplicate = []
     @count = 0
   end
 
   def game_start(user, shisa)
+    country = Country.new 
     # shisa.greet
     loop do
-      shisa.action(@count)
-      user.action
+      shisa.action(@count, country)
+      user.action(country)
       @count += 1
     end
-
-
 
     # シーサーの登場
     # loop do
@@ -22,6 +20,5 @@ class WordChain
     #   break if ~~~
     # end
     # ゲーム終了
-    end
   end
 end
