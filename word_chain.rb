@@ -3,7 +3,7 @@ class WordChain
     @count = 0
   end
 
-  def game_start(instruction, user, shisa)
+  def game_start(instruction, shisa, user)
     instruction.greet
     country = Country.new
     loop do

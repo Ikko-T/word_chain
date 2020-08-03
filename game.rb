@@ -4,7 +4,7 @@ require_relative "shisa"
 require_relative "user"
 require_relative "country"
 require 'timeout'
-# require 'pry'
+require 'pry'
 
 word_chain = WordChain.new
 instruction = Instruction.new

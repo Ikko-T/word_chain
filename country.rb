@@ -41,7 +41,6 @@ class Country
     last_char = input[-1] == "ン"
     if last_char
       puts "語尾が「ン」で終わっています。"
-      sleep 1.0
       true
     else
       false
@@ -52,7 +51,6 @@ class Country
     duplication = @is_duplicate.count - @is_duplicate.uniq.count > 0
     if duplication
       puts "すでに回答済です。"
-      sleep 1.0
       true
     else
       false
