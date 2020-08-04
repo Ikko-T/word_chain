@@ -1,17 +1,16 @@
 class Instruction
   def greet
-    favorite_food = ["ゴーヤー", "サーターアンダギー", "ソーキそば", "フーチャンプルー", "ちんすこう"].sample
-    favorite_message = <<~TEXT
-    好きな食べ物は#{favorite_food}です。
-    #{"-" * 40}
-    TEXT
-    shisa_start = <<~TEXT
-    #{"-" * 40}
-    それでは、わたくしシーサーから始めます！
-    #{"=" * 40}
-    TEXT
+    messages.each do |message|
+      puts message
+      sleep 1.5
+    end
+    sleep 1.5
+  end
 
-    messages = [
+  private
+
+  def messages
+    speech = [
       "めんそ〜れ〜",
       "しりとり名人の「シーサー・ゴヤ」と申します。",
       favorite_message,
@@ -24,11 +23,21 @@ class Instruction
       "または制限時間20秒を過ぎたら負けです。",
       shisa_start
     ]
+  end
 
-    messages.each do |message|
-      puts message
-      sleep 1.5
-    end
-    sleep 1.5
+  def favorite_message
+    favorite_food = ["ゴーヤー", "サーターアンダギー", "ソーキそば", "フーチャンプルー", "ちんすこう"].sample
+    <<~TEXT
+    好きな食べ物は#{favorite_food}です。
+    #{"-" * 40}
+    TEXT
+  end
+
+  def shisa_start
+    <<~TEXT
+    #{"-" * 40}
+    それでは、わたくしシーサーから始めます！
+    #{"=" * 40}
+    TEXT
   end
 end
