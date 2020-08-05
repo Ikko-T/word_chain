@@ -4,12 +4,7 @@ class User
   def action(country)
     Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
     begin
-      Timeout.timeout(20) do
-        input = turn(country)
-        redo unless validate(input) && country.confirm(input)
-        country.insert(input)
-        lose if country.word_end?(input) || country.duplicate?
-      end
+      answer_time(country)
     rescue Timeout::Error
       timeout
     end
@@ -17,8 +12,17 @@ class User
 
   private
 
-  def turn(country)
-    puts "「#{country.last_char}」から始まる国名を入力して下さい。"
+  def answer_time(country)
+    Timeout.timeout(20) do
+      puts "「#{country.last_char}」から始まる国名を入力して下さい。"
+      input = turn
+      redo unless validate(input) && country.confirm(input) && country.last_char == input[0]
+      country.insert(input)
+      lose if country.word_end?(input) || country.duplicate?
+    end
+  end
+
+  def turn
     print "あなた: "
     input = gets.chomp
     puts "=" * 40
