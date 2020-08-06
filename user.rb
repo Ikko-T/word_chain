@@ -1,5 +1,5 @@
 class User
-  KATAKANA = /\A(?:\p{Katakana}|[ー-]|)+\z/
+  KATAKANA = /\A(?:\p{Katakana}|[ー・]|)+\z/
 
   def action(country)
     Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
@@ -24,7 +24,7 @@ class User
 
   def turn
     print "あなた: "
-    input = gets.chomp
+    input = transform(gets.chomp)
     puts "=" * 40
     input
   end
@@ -48,5 +48,9 @@ class User
     puts "ターイムアウト!"
     sleep 1.0
     lose
+  end
+
+  def transform(input)
+    NKF.nkf("--katakana -w", input)
   end
 end
