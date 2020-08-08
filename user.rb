@@ -29,10 +29,14 @@ class User
     input
   end
 
+  def transform(input)
+    NKF.nkf("--katakana -w", input).tr("　･−"," ・ー").strip
+  end
+
   def validate(input)
     match = input =~ KATAKANA
     unless match
-      puts "カタカナで入力してください。"
+      puts "ひらがな又はカタカナで入力してください。"
       puts "=" * 40
     end
     match
@@ -48,9 +52,5 @@ class User
     puts "ターイムアウト!"
     sleep 1.0
     lose
-  end
-
-  def transform(input)
-    NKF.nkf("--katakana -w", input)
   end
 end
