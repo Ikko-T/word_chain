@@ -1,17 +1,11 @@
  class Shisa
   def action(count, country)
     if count == 1
-      puts "***#{count}ターン目***"
-      input = first_turn(country)
-      validate(input)
+      initial_answer(count, country)
     else
       Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
       begin
-        Timeout.timeout(20) do
-          puts "***#{count}ターン目***"
-          input = turn(country)
-          win if country.word_end?(input) || country.duplicate?
-        end
+        answer_time(count, country)
       rescue Timeout::Error
         timeout
       end
@@ -19,6 +13,12 @@
   end
 
   private
+
+  def initial_answer(count, country)
+    puts "***#{count}ターン目***"
+    input = first_turn(country)
+    validate(input)
+  end
 
   def first_turn(country)
     input = country.begin
@@ -36,10 +36,18 @@
     end
   end
 
+  def answer_time(count, country)
+    Timeout.timeout(20) do
+      puts "***#{count}ターン目***"
+      input = turn(country)
+      win if country.word_end?(input) || country.duplicate?
+    end
+  end
+
   def turn(country)
     puts "シーサー考え中、、、"
     print "シーサー: "
-    sleep(rand(1..22))
+    sleep(rand(1..21))
     input = country.choose
     win if input.nil?
     puts "#{input}"
