@@ -4,7 +4,7 @@ class User
   def action(country)
     Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
     begin
-      answer_time(country)
+      answer(country)
     rescue Timeout::Error
       timeout
     end
@@ -12,7 +12,7 @@ class User
 
   private
 
-  def answer_time(country)
+  def answer(country)
     Timeout.timeout(20) do
       puts "「#{country.last_char}」から始まる国名を入力して下さい。"
       input = turn
