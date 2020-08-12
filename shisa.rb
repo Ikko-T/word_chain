@@ -5,7 +5,7 @@
     else
       Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
       begin
-        answer_time(count, country)
+        answer(count, country)
       rescue Timeout::Error
         timeout
       end
@@ -36,7 +36,7 @@
     end
   end
 
-  def answer_time(count, country)
+  def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       input = turn(country)
