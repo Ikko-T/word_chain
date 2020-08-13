@@ -5,7 +5,7 @@ class Country
     @is_duplicate = []
   end
 
-  def random_answer
+  def choose_random
     country = COUNTRIES.sample
     @is_duplicate << country
     country
@@ -15,10 +15,10 @@ class Country
     @is_duplicate.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
   end
 
-  def choose
+  def choose_answer
     countries = COUNTRIES.select { |c| c[0] == last_char }
     country = countries.sample
-    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if country.nil?
+    # puts "頭に浮かばないさぁ〜、降参するさぁ〜" if country.nil?
     @is_duplicate << country
     country
   end
