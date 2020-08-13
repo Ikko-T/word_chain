@@ -16,19 +16,19 @@ class Shisa
 
   def initial_answer(count, country)
     puts "***#{count}ターン目***"
-    input = first_turn(country)
-    validate(input)
+    selected_country = first_turn(country)
+    validate(selected_country)
   end
 
   def first_turn(country)
-    input = country.choose_random
-    puts "シーサー: #{input}"
-    puts "=" * 40
-    input
+    selected_country = country.choose_random
+    puts "シーサー: #{selected_country}"
+    puts "========================================"
+    selected_country
   end
 
-  def validate(input)
-    last_char = input[-1] == "ン"
+  def validate(selected_country)
+    last_char = selected_country[-1] == "ン"
     if last_char
       sleep 1.0
       puts "語尾が「ン」で終わっています。"
@@ -39,8 +39,8 @@ class Shisa
   def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
-      input = turn(country)
-      win if country.word_end?(input) || country.duplicate?
+      selected_country = turn(country)
+      win if country.word_end?(selected_country) || country.duplicate?
     end
   end
 
@@ -48,18 +48,11 @@ class Shisa
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    input = country.choose_answer
-    give_up if input.nil?
-    puts "#{input}"
-    puts "=" * 40
-    input
-  end
-
-  def win
-    sleep 1.0
-    puts "あなたの勝ちです！"
-    puts "=" * 40
-    exit
+    selected_country = country.choose_answer
+    give_up if selected_country.nil?
+    puts "#{selected_country}"
+    puts "========================================"
+    selected_country
   end
 
   def timeout
@@ -70,5 +63,12 @@ class Shisa
   def give_up
     puts "頭に浮かばないさぁ〜、降参するさぁ〜"
     win
+  end
+
+  def win
+    sleep 1.0
+    puts "あなたの勝ちです！"
+    puts "========================================"
+    exit
   end
 end
