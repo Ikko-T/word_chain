@@ -1,4 +1,4 @@
- class Shisa
+class Shisa
   def action(count, country)
     if count == 1
       initial_answer(count, country)
@@ -21,7 +21,7 @@
   end
 
   def first_turn(country)
-    input = country.begin
+    input = country.choose_random
     puts "シーサー: #{input}"
     puts "=" * 40
     input
@@ -48,8 +48,8 @@
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    input = country.choose
-    win if input.nil?
+    input = country.choose_answer
+    give_up if input.nil?
     puts "#{input}"
     puts "=" * 40
     input
@@ -64,6 +64,11 @@
 
   def timeout
     puts "ターイムアウト!"
+    win
+  end
+
+  def give_up
+    puts "頭に浮かばないさぁ〜、降参するさぁ〜"
     win
   end
 end
