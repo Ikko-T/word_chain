@@ -5,7 +5,7 @@ class Country
     @is_duplicate = []
   end
 
-  def begin
+  def random_answer
     country = COUNTRIES.sample
     @is_duplicate << country
     country
@@ -32,7 +32,7 @@ class Country
     unless match
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
-      puts "=" * 40
+      puts "========================================"
     end
     match
   end
