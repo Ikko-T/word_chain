@@ -18,17 +18,16 @@ class Country
   def choose_answer
     countries = COUNTRIES.select { |c| c[0] == last_char }
     country = countries.sample
-    # puts "頭に浮かばないさぁ〜、降参するさぁ〜" if country.nil?
     @is_duplicate << country
     country
   end
 
-  def insert(input)
-    @is_duplicate << input
+  def insert(selected_country)
+    @is_duplicate << selected_country
   end
 
-  def confirm(input)
-    match = COUNTRIES.find { |c| c == input }
+  def confirm(selected_country)
+    match = COUNTRIES.find { |c| c == selected_country }
     unless match
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
@@ -37,8 +36,8 @@ class Country
     match
   end
 
-  def word_end?(input)
-    last_char = input[-1] == "ン"
+  def word_end?(selected_country)
+    last_char = selected_country[-1] == "ン"
     if last_char
       puts "語尾が「ン」で終わっています。"
       true
