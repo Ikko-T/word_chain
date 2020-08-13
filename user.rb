@@ -15,42 +15,42 @@ class User
   def answer(country)
     Timeout.timeout(20) do
       puts "「#{country.last_char}」から始まる国名を入力して下さい。"
-      input = turn
-      redo unless validate(input) && country.confirm(input) && country.last_char == input[0]
-      country.insert(input)
-      lose if country.word_end?(input) || country.duplicate?
+      selected_country = turn
+      redo unless validate(selected_country) && country.confirm(selected_country) && country.last_char == selected_country[0]
+      country.insert(selected_country)
+      lose if country.word_end?(selected_country) || country.duplicate?
     end
   end
 
   def turn
     print "あなた: "
-    input = transform(gets.chomp)
-    puts "=" * 40
-    input
+    selected_country = transform(gets.chomp)
+    puts "========================================"
+    selected_country
   end
 
-  def transform(input)
-    NKF.nkf("--katakana -w", input).tr("　･−"," ・ー").strip
+  def transform(selected_country)
+    NKF.nkf("--katakana -w", selected_country).tr("　･−"," ・ー").strip
   end
 
-  def validate(input)
-    match = input =~ KATAKANA
+  def validate(selected_country)
+    match = selected_country =~ KATAKANA
     unless match
       puts "ひらがな又はカタカナで入力してください。"
-      puts "=" * 40
+      puts "========================================"
     end
     match
-  end
-
-  def lose
-    puts "あなたの負けです！"
-    puts "=" * 40
-    exit
   end
 
   def timeout
     puts "ターイムアウト!"
     sleep 1.0
     lose
+  end
+
+  def lose
+    puts "あなたの負けです！"
+    puts "========================================"
+    exit
   end
 end
