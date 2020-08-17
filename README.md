@@ -1,11 +1,9 @@
-***
 ## Product Name
-***
+---
 Ruby対話型国名しりとりゲーム
 
-***
 ## Description
-***
+---
 このゲームの対象は4才以上です。
 
 しりとり名人シーサと国名しりとり対決します。
@@ -22,14 +20,12 @@ Ruby対話型国名しりとりゲーム
 
 このしりとりゲームを通して、今まで聞いたことのない国名に出会いそして興味を持ち行ってみたいと思えたら嬉しいです。
 
-***
 ## Demo
-***
+---
 ![Screenshot](DEMO.gif)
 
-***
 ## Usage
-***
+---
 クローンします。
 ```
 $ git clone https://github.com/Ikko-T/Word_Chain.git
@@ -43,16 +39,14 @@ $ cd Word_Chain
 $ ruby game.rb
 ```
 
-***
 ## Installation
-***
+---
 `pry`を導入します。
 
 `$ gem install pry`
 
-***
 ## Author
-***
+---
 [Ikko Tsuha](https://github.com/Ikko-T)
 
 - Twitter: [@ikko1021](https://twitter.com/ikko1021)
@@ -61,8 +55,7 @@ $ ruby game.rb
 
 - Qiita: <a href="https://qiita.com/Ikko-T" rel="nofollow">@Ikko-T</a>
 
-***
 ## Licence
-***
+---
 
 (C)Copyright 2020 Ikko Tsuha
