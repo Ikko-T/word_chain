@@ -1,7 +1,9 @@
+***
 ## Product Name
 ***
 Ruby対話型国名しりとりゲーム
 
+***
 ## Description
 ***
 このゲームの対象は4才以上です。
@@ -20,10 +22,12 @@ Ruby対話型国名しりとりゲーム
 
 このしりとりゲームを通して、今まで聞いたことのない国名に出会いそして興味を持ち行ってみたいと思えたら嬉しいです。
 
+***
 ## Demo
 ***
 ![Screenshot](DEMO.gif)
 
+***
 ## Usage
 ***
 クローンします。
@@ -39,12 +43,14 @@ $ cd Word_Chain
 $ ruby game.rb
 ```
 
+***
 ## Installation
 ***
 `pry`を導入します。
 
 `$ gem install pry`
 
+***
 ## Author
 ***
 [Ikko Tsuha](https://github.com/Ikko-T)
@@ -55,6 +61,7 @@ $ ruby game.rb
 
 - Qiita: <a href="https://qiita.com/Ikko-T" rel="nofollow">@Ikko-T</a>
 
+***
 ## Licence
 ***
 
