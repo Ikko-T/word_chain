@@ -16,7 +16,7 @@ class User
     Timeout.timeout(20) do
       puts "「#{country.last_char}」から始まる国名を入力して下さい。"
       selected_country = turn
-      redo unless validate(selected_country) && country.confirm(selected_country) && country.last_char == selected_country[0]
+      redo unless validate(selected_country) && correct?(country, selected_country) && country.last_char == selected_country[0]
       country.insert(selected_country)
       lose if country.word_end?(selected_country) || country.duplicate?
     end
@@ -42,13 +42,23 @@ class User
     match
   end
 
+  def correct?(country, selected_country)
+    match = country.confirm(selected_country)
+    unless match
+      puts "そのような国名はありません。"
+      puts "正しい国名を入力してください。"
+      puts "========================================"
+    end
+    match
+  end
+
   def timeout
     puts "ターイムアウト!"
-    sleep 1.0
     lose
   end
 
   def lose
+    sleep 1.0
     puts "あなたの負けです！"
     puts "========================================"
     exit

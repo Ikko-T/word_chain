@@ -17,7 +17,7 @@ class Shisa
   def initial_answer(count, country)
     puts "***#{count}ターン目***"
     selected_country = first_turn(country)
-    validate(selected_country)
+    validate(country, selected_country)
   end
 
   def first_turn(country)
@@ -27,13 +27,8 @@ class Shisa
     selected_country
   end
 
-  def validate(selected_country)
-    last_char = selected_country[-1] == "ン"
-    if last_char
-      sleep 1.0
-      puts "語尾が「ン」で終わっています。"
-      win
-    end
+  def validate(country, selected_country)
+    win if country.word_end?(selected_country)
   end
 
   def answer(count, country)

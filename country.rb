@@ -27,13 +27,7 @@ class Country
   end
 
   def confirm(selected_country)
-    match = COUNTRIES.find { |c| c == selected_country }
-    unless match
-      puts "そのような国名はありません。"
-      puts "正しい国名を入力してください。"
-      puts "========================================"
-    end
-    match
+    COUNTRIES.find { |c| c == selected_country }
   end
 
   def word_end?(selected_country)
