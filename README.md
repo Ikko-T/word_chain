@@ -49,9 +49,9 @@ $ ruby game.rb
 ---
 [Ikko Tsuha](https://github.com/Ikko-T)
 
-- Twitter: <a href="https://twitter.com/ikko1021" target="_blank" rel="noopener">@ikko1021</a>
+- Twitter: [@ikko1021](https://twitter.com/ikko1021)
 
-- GitHub: <a href="https://github.com/Ikko-T" target="_blank" rel="noopener">@Ikko-T</a>
+- GitHub: [@Ikko-T](https://github.com/Ikko-T)
 
 - Qiita: <a href="https://qiita.com/Ikko-T" target="_blank" rel="noopener">@Ikko-T</a>
 
