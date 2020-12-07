@@ -1,4 +1,4 @@
-class Instruction
+module Instruction
   def greet
     messages.each do |message|
       puts message
