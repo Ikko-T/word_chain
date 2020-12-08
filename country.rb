@@ -2,51 +2,35 @@ class Country
   COUNTRIES = File.read("./country.txt").split
 
   def initialize
-    @is_duplicate = []
+    @history_record = []
   end
 
   def choose_random
-    country = COUNTRIES.sample
-    @is_duplicate << country
-    country
+    COUNTRIES.sample
+  end
+
+  def insert_history_record(country)
+    @history_record << country
   end
 
   def last_char
-    @is_duplicate.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
+    @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
   end
 
   def choose_answer
     countries = COUNTRIES.select { |c| c[0] == last_char }
-    country = countries.sample
-    @is_duplicate << country
-    country
-  end
-
-  def insert(selected_country)
-    @is_duplicate << selected_country
+    countries.sample
   end
 
   def confirm(selected_country)
     COUNTRIES.find { |c| c == selected_country }
   end
 
-  def word_end?(selected_country)
-    last_char = selected_country[-1] == "ン"
-    if last_char
-      puts "語尾が「ン」で終わっています。"
-      true
-    else
-      false
-    end
+  def last_letter_fail?(selected_country)
+    selected_country[-1] == "ン"
   end
 
   def duplicate?
-    duplication = @is_duplicate.count - @is_duplicate.uniq.count > 0
-    if duplication
-      puts "すでに回答済です。"
-      true
-    else
-      false
-    end
+    @history_record.count - @history_record.uniq.count > 0
   end
 end

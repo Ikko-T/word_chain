@@ -22,21 +22,28 @@ class Shisa
   end
 
   def first_turn(country)
-    selected_country = country.choose_random
-    puts "シーサー: #{selected_country}"
+    answer = country.choose_random
+    country.insert_history_record(answer)
+    puts "シーサー: #{answer}"
     puts "========================================"
-    selected_country
+    answer
   end
 
   def validate(country, selected_country)
-    win if country.word_end?(selected_country)
+    if country.last_letter_fail?(selected_country)
+      puts "語尾が「ン」で終わっています。"
+      win
+    end
   end
 
   def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       selected_country = turn(country)
-      win if country.word_end?(selected_country) || country.duplicate?
+      if country.last_letter_fail?(selected_country) || country.duplicate?
+        puts "すでに回答済です。"
+        win
+      end
     end
   end
 
@@ -44,11 +51,12 @@ class Shisa
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    selected_country = country.choose_answer
-    give_up if selected_country.nil?
-    puts "#{selected_country}"
+    answer = country.choose_answer
+    country.insert_history_record(answer)
+    give_up if answer.nil?
+    puts "#{answer}"
     puts "========================================"
-    selected_country
+    answer
   end
 
   def timeout
