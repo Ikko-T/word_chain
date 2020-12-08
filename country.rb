@@ -2,29 +2,32 @@ class Country
   COUNTRIES = File.read("./country.txt").split
 
   def initialize
-    @is_duplicate = []
+    @history_record = []
   end
 
   def choose_random
-    country = COUNTRIES.sample
-    @is_duplicate << country
-    country
+    COUNTRIES.sample
+  end
+
+  def insert_history_record(country)
+    @history_record << country
   end
 
   def last_char
-    @is_duplicate.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
+    @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
   end
 
   def choose_answer
     countries = COUNTRIES.select { |c| c[0] == last_char }
     country = countries.sample
-    @is_duplicate << country
+    @history_record << country
     country
   end
 
-  def insert(selected_country)
-    @is_duplicate << selected_country
-  end
+  # def insert(selected_country)
+  #   @history_record << choose_random
+  #   @history_record << selected_country
+  # end
 
   def confirm(selected_country)
     COUNTRIES.find { |c| c == selected_country }
@@ -41,7 +44,7 @@ class Country
   end
 
   def duplicate?
-    duplication = @is_duplicate.count - @is_duplicate.uniq.count > 0
+    duplication = @history_record.count - @history_record.uniq.count > 0
     if duplication
       puts "すでに回答済です。"
       true

@@ -22,10 +22,11 @@ class Shisa
   end
 
   def first_turn(country)
-    selected_country = country.choose_random
-    puts "シーサー: #{selected_country}"
+    answer = country.choose_random
+    country.insert_history_record(answer)
+    puts "シーサー: #{answer}"
     puts "========================================"
-    selected_country
+    answer
   end
 
   def validate(country, selected_country)

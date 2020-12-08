@@ -4,7 +4,7 @@ class WordChain
   end
 
   def game_start(shisa, user)
-    shisa.greet
+    # shisa.greet
     country = Country.new
     loop do
       @count += 1
