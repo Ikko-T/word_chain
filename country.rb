@@ -21,32 +21,16 @@ class Country
     countries = COUNTRIES.select { |c| c[0] == last_char }
     countries.sample
   end
-  # def insert(selected_country)
-  #   @history_record << choose_random
-  #   @history_record << selected_country
-  # end
 
   def confirm(selected_country)
     COUNTRIES.find { |c| c == selected_country }
   end
 
-  def word_end?(selected_country)
-    last_char = selected_country[-1] == "ン"
-    if last_char
-      puts "語尾が「ン」で終わっています。"
-      true
-    else
-      false
-    end
+  def last_letter_fail?(selected_country)
+    selected_country[-1] == "ン"
   end
 
   def duplicate?
-    duplication = @history_record.count - @history_record.uniq.count > 0
-    if duplication
-      puts "すでに回答済です。"
-      true
-    else
-      false
-    end
+    @history_record.count - @history_record.uniq.count > 0
   end
 end

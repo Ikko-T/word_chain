@@ -30,14 +30,20 @@ class Shisa
   end
 
   def validate(country, selected_country)
-    win if country.word_end?(selected_country)
+    if country.last_letter_fail?(selected_country)
+      puts "語尾が「ン」で終わっています。"
+      win
+    end
   end
 
   def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       selected_country = turn(country)
-      win if country.word_end?(selected_country) || country.duplicate?
+      if country.last_letter_fail?(selected_country) || country.duplicate?
+        puts "すでに回答済です。"
+        win
+      end
     end
   end
 
