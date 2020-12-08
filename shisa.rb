@@ -45,11 +45,12 @@ class Shisa
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    selected_country = country.choose_answer
-    give_up if selected_country.nil?
-    puts "#{selected_country}"
+    answer = country.choose_answer
+    country.insert_history_record(answer)
+    give_up if answer.nil?
+    puts "#{answer}"
     puts "========================================"
-    selected_country
+    answer
   end
 
   def timeout

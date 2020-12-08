@@ -19,11 +19,8 @@ class Country
 
   def choose_answer
     countries = COUNTRIES.select { |c| c[0] == last_char }
-    country = countries.sample
-    @history_record << country
-    country
+    countries.sample
   end
-
   # def insert(selected_country)
   #   @history_record << choose_random
   #   @history_record << selected_country

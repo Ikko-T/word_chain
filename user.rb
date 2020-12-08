@@ -17,7 +17,7 @@ class User
       puts "「#{country.last_char}」から始まる国名を入力して下さい。"
       selected_country = turn
       redo unless validate(selected_country) && correct?(country, selected_country) && country.last_char == selected_country[0]
-      country.insert(selected_country)
+      country.insert_history_record(selected_country)
       lose if country.word_end?(selected_country) || country.duplicate?
     end
   end
