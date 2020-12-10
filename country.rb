@@ -1,10 +1,6 @@
 class Country
   COUNTRIES = File.read("./country.txt").split
 
-  def initialize
-    @history_record = []
-  end
-
   def choose_random
     COUNTRIES.sample
   end

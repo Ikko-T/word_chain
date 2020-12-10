@@ -1,11 +1,11 @@
 class WordChain
   def initialize
     @count = 0
+    @history_record = []
   end
 
   def game_start(shisa, user)
     # shisa.greet
-    country = Country.new
     loop do
       @count += 1
       shisa.action(@count, country)
