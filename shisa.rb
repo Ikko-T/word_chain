@@ -1,7 +1,7 @@
 class Shisa
   include Instruction
 
-  def action(count, country)
+  def action(count)
     if count == 1
       initial_answer(count, country)
     else
@@ -18,24 +18,17 @@ class Shisa
 
   def initial_answer(count, country)
     puts "***#{count}ターン目***"
-    country_name = first_turn(country)
-    validate(country, country_name)
+    country_name = come_up(country)
+    judge_shisa(country_name)
   end
 
-  def first_turn(country)
-    answer = country.choose_random
-    country.insert_history_record(answer)
-    puts "シーサー: #{answer}"
+  def come_up(country)
+    country_name = Country.choose_random
+    country.insert_history_record(country_name)
+    puts "シーサー: #{country_name}"
     puts "========================================"
-    answer
+    country_name
   end
-
-  # def validate(country, country_name)
-  #   if country.last_letter_fail?(country_name)
-  #     puts "語尾が「ン」で終わっています。"
-  #     win
-  #   end
-  # end
 
   def answer(count, country)
     Timeout.timeout(20) do
