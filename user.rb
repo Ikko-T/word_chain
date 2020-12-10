@@ -1,4 +1,5 @@
 class User
+  include Country
   KATAKANA = /\A(?:\p{Katakana}|[ー・]|)+\z/
 
   def action(country)

@@ -1,5 +1,7 @@
 class Shisa
   include Instruction
+  include Country
+  
   def action(count, country)
     if count == 1
       initial_answer(count, country)
