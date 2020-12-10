@@ -24,7 +24,7 @@ class Shisa
 
   def come_up(country)
     country_name = Country.choose_random
-    country.insert_history_record(country_name)
+    Country.insert_history_record(country_name)
     puts "シーサー: #{country_name}"
     puts "========================================"
     country_name
@@ -34,7 +34,7 @@ class Shisa
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       country_name = turn(country)
-      if country.last_letter_fail?(country_name) || country.duplicate?
+      if Country.last_letter_fail?(country_name) || country.duplicate?
         puts "すでに回答済です。"
         win
       end
@@ -45,8 +45,8 @@ class Shisa
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    answer = country.choose_answer
-    country.insert_history_record(answer)
+    answer = Country.choose_answer
+    Country.insert_history_record(answer)
     give_up if answer.nil?
     puts "#{answer}"
     puts "========================================"

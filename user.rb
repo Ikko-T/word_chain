@@ -16,8 +16,8 @@ class User
     Timeout.timeout(20) do
       puts "「#{Country.last_char}」から始まる国名を入力して下さい。"
       country_name = come_up
-      redo unless validate(country_name) && exist?(country, country_name) && country.last_char == country_name[0]
-      country.insert_history_record(country_name)
+      redo unless letter_check(country_name) && exist?(country, country_name) && Country.last_char == country_name[0]
+      Country.insert_history_record(country_name)
       judge_user(country_name)
     end
   end
@@ -33,7 +33,7 @@ class User
     NKF.nkf("--katakana -w", country_name).tr("　･−"," ・ー").strip
   end
 
-  def validate(country_name)
+  def letter_check(country_name)
     match = country_name =~ KATAKANA
     unless match
       puts "ひらがな又はカタカナで入力してください。"
