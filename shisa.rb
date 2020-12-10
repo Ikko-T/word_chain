@@ -18,8 +18,8 @@ class Shisa
 
   def initial_answer(count, country)
     puts "***#{count}ターン目***"
-    selected_country = first_turn(country)
-    validate(country, selected_country)
+    country_name = first_turn(country)
+    validate(country, country_name)
   end
 
   def first_turn(country)
@@ -30,8 +30,8 @@ class Shisa
     answer
   end
 
-  # def validate(country, selected_country)
-  #   if country.last_letter_fail?(selected_country)
+  # def validate(country, country_name)
+  #   if country.last_letter_fail?(country_name)
   #     puts "語尾が「ン」で終わっています。"
   #     win
   #   end
@@ -40,8 +40,8 @@ class Shisa
   def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
-      selected_country = turn(country)
-      if country.last_letter_fail?(selected_country) || country.duplicate?
+      country_name = turn(country)
+      if country.last_letter_fail?(country_name) || country.duplicate?
         puts "すでに回答済です。"
         win
       end
