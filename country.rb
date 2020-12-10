@@ -13,7 +13,7 @@ class Country
     @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
   end
 
-  def self.choose_answer
+  def self.grab_on_behind
     countries = COUNTRIES.select { |c| c[0] == last_char }
     countries.sample
   end

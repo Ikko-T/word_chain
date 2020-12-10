@@ -33,7 +33,7 @@ class Shisa
   def answer(count, country)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
-      country_name = turn(country)
+      country_name = think(country)
       if Country.last_letter_fail?(country_name) || country.duplicate?
         puts "すでに回答済です。"
         win
@@ -41,11 +41,11 @@ class Shisa
     end
   end
 
-  def turn(country)
+  def think(country)
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    answer = Country.choose_answer
+    answer = Country.grab_on_behind
     Country.insert_history_record(answer)
     give_up if answer.nil?
     puts "#{answer}"
