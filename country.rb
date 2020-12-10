@@ -1,4 +1,4 @@
-module Country
+class Country
   COUNTRIES = File.read("./country.txt").split
 
   def choose_random

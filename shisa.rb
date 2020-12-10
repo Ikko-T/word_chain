@@ -1,7 +1,6 @@
 class Shisa
   include Instruction
-  include Country
-  
+
   def action(count, country)
     if count == 1
       initial_answer(count, country)
@@ -31,12 +30,12 @@ class Shisa
     answer
   end
 
-  def validate(country, selected_country)
-    if country.last_letter_fail?(selected_country)
-      puts "語尾が「ン」で終わっています。"
-      win
-    end
-  end
+  # def validate(country, selected_country)
+  #   if country.last_letter_fail?(selected_country)
+  #     puts "語尾が「ン」で終わっています。"
+  #     win
+  #   end
+  # end
 
   def answer(count, country)
     Timeout.timeout(20) do
@@ -61,20 +60,20 @@ class Shisa
     answer
   end
 
-  def timeout
-    puts "ターイムアウト!"
-    win
-  end
+  # def timeout
+  #   puts "ターイムアウト!"
+  #   win
+  # end
 
-  def give_up
-    puts "頭に浮かばないさぁ〜、降参するさぁ〜"
-    win
-  end
+  # def give_up
+  #   puts "頭に浮かばないさぁ〜、降参するさぁ〜"
+  #   win
+  # end
 
-  def win
-    sleep 1.0
-    puts "あなたの勝ちです！"
-    puts "========================================"
-    exit
-  end
+  # def win
+  #   sleep 1.0
+  #   puts "あなたの勝ちです！"
+  #   puts "========================================"
+  #   exit
+  # end
 end

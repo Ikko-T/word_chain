@@ -1,5 +1,4 @@
 class User
-  include Country
   KATAKANA = /\A(?:\p{Katakana}|[ー・]|)+\z/
 
   def action(country)
@@ -7,7 +6,7 @@ class User
     begin
       answer(country)
     rescue Timeout::Error
-      timeout
+      user_timeout
     end
   end
 
@@ -16,29 +15,26 @@ class User
   def answer(country)
     Timeout.timeout(20) do
       puts "「#{country.last_char}」から始まる国名を入力して下さい。"
-      selected_country = turn
-      redo unless validate(selected_country) && correct?(country, selected_country) && country.last_char == selected_country[0]
-      country.insert_history_record(selected_country)
-      if country.last_letter_fail?(selected_country) || country.duplicate?
-        puts "すでに回答済です。"
-        lose
-      end
+      country_name = come_up
+      redo unless validate(country_name) && exist?(country, country_name) && country.last_char == country_name[0]
+      country.insert_history_record(country_name)
+      judge(country_name)
     end
   end
 
-  def turn
+  def come_up
     print "あなた: "
-    selected_country = transform(gets.chomp)
+    country_name = transform(gets.chomp)
     puts "========================================"
-    selected_country
+    country_name
   end
 
-  def transform(selected_country)
-    NKF.nkf("--katakana -w", selected_country).tr("　･−"," ・ー").strip
+  def transform(country_name)
+    NKF.nkf("--katakana -w", country_name).tr("　･−"," ・ー").strip
   end
 
-  def validate(selected_country)
-    match = selected_country =~ KATAKANA
+  def validate(country_name)
+    match = country_name =~ KATAKANA
     unless match
       puts "ひらがな又はカタカナで入力してください。"
       puts "========================================"
@@ -46,25 +42,13 @@ class User
     match
   end
 
-  def correct?(country, selected_country)
-    match = country.confirm(selected_country)
+  def exist?(country, country_name)
+    match = country.confirm(country_name)
     unless match
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
       puts "========================================"
     end
     match
-  end
-
-  def timeout
-    puts "ターイムアウト!"
-    lose
-  end
-
-  def lose
-    sleep 1.0
-    puts "あなたの負けです！"
-    puts "========================================"
-    exit
   end
 end
