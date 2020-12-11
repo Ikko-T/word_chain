@@ -13,8 +13,8 @@ class WordChain
     end
   end
 
-  def judge_user(answer)
-    if Country.last_letter_fail?(answer)
+  def judge_user(country)
+    if Country.last_letter_fail?(country)
       puts "語尾が「ン」で終わっています。"
       user_lose
     end
@@ -24,22 +24,14 @@ class WordChain
     end
   end
 
-  def judge_shisa(answer)
-    if Country.last_letter_fail?(answer)
-      puts "語尾が「ン」で終わっています。"
-      shisa_lose
-    end
-    if Country.duplicate?(answer)
-      puts "すでに回答済です。"
-      shisa_lose
-    end
+  def validate_last_letter(country)
+    puts "語尾が「ン」で終わっています。" if Country.last_letter_fail?(country)
+    country
   end
 
-  def validate(country, selected_country)
-    if Country.last_letter_fail?(selected_country)
-      puts "語尾が「ン」で終わっています。"
-      shisa_lose
-    end
+  def validate_duplication(country)
+    puts "すでに回答済です。" if Country.duplicate?(country)
+    country
   end
 
   def give_up

@@ -19,7 +19,8 @@ class Shisa
   def initial_answer(count, country)
     puts "***#{count}ターン目***"
     country_name = come_up(country)
-    judge_shisa(country_name)
+    validate_last_letter(country_name)
+    validate_duplication(country_name)
   end
 
   def come_up(country)
@@ -34,7 +35,9 @@ class Shisa
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       country_name = think(country)
-      judge_shisa(country_name)
+      validate_last_letter(country_name)
+      validate_duplication(country_name)
+      country_name
     end
   end
 
@@ -49,5 +52,4 @@ class Shisa
     puts "========================================"
     answer
   end
-
 end
