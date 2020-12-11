@@ -8,6 +8,6 @@ require_relative "user"
 require_relative "country"
 
 word_chain = WordChain.new
-user = User.new
 shisa = Shisa.new
+user = User.new
 word_chain.game_start(shisa, user)

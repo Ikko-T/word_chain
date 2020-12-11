@@ -9,7 +9,7 @@ class Shisa
       begin
         answer(count, country)
       rescue Timeout::Error
-        timeout
+        shisa_timeout
       end
     end
   end
@@ -34,10 +34,7 @@ class Shisa
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
       country_name = think(country)
-      if Country.last_letter_fail?(country_name) || country.duplicate?
-        puts "すでに回答済です。"
-        win
-      end
+      judge_shisa(country_name)
     end
   end
 
@@ -53,20 +50,4 @@ class Shisa
     answer
   end
 
-  # def timeout
-  #   puts "ターイムアウト!"
-  #   win
-  # end
-
-  # def give_up
-  #   puts "頭に浮かばないさぁ〜、降参するさぁ〜"
-  #   win
-  # end
-
-  # def win
-  #   sleep 1.0
-  #   puts "あなたの勝ちです！"
-  #   puts "========================================"
-  #   exit
-  # end
 end
