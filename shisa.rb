@@ -3,53 +3,54 @@ class Shisa
 
   def action(count)
     if count == 1
-      initial_answer(count, country)
+      initial_answer(count)
     else
       Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
       begin
-        answer(count, country)
+        answer(count)
       rescue Timeout::Error
-        shisa_timeout
+        timeout
       end
     end
   end
 
   private
 
-  def initial_answer(count, country)
+  def initial_answer(count)
     puts "***#{count}ターン目***"
-    country_name = come_up(country)
-    validate_last_letter(country_name)
-    validate_duplication(country_name)
+    country = come_up
+    validate_last_letter(country)
+    validate_duplication(country)
+    country
   end
 
-  def come_up(country)
-    country_name = Country.choose_random
-    Country.insert_history_record(country_name)
-    puts "シーサー: #{country_name}"
+  def come_up
+    country = Country.choose_random
+    Country.insert_history_record(country)
+    puts "シーサー: #{country}"
     puts "========================================"
-    country_name
+    country
   end
 
-  def answer(count, country)
+  def answer(count)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
-      country_name = think(country)
-      validate_last_letter(country_name)
-      validate_duplication(country_name)
-      country_name
+      country = think
+      validate_last_letter(country)
+      validate_duplication(country)
+      country
     end
   end
 
-  def think(country)
+  def think
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    country_name = Country.grab_on_behind
-    Country.insert_history_record(country_name)
-    give_up if country_name.nil?
-    puts "#{country_name}"
+    country = Country.choose_intentional
+    Country.insert_history_record(country)
+    give_up if country.nil?
+    puts "#{country}"
     puts "========================================"
-    country_name
+    country
   end
 end

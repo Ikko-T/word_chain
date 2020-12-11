@@ -8,8 +8,8 @@ class WordChain
     # shisa.greet
     loop do
       @count += 1
-      shisa.action(@count, shisa)
-      user.action(user)
+      shisa.action(@count)
+      user.action
     end
   end
 
@@ -28,9 +28,9 @@ class WordChain
     shisa_lose
   end
 
-  def shisa_timeout
+  def timeout
     puts "ターイムアウト!"
-    shisa_lose
+    shisa_lose || user_lose
   end
 
   def shisa_lose
@@ -38,11 +38,6 @@ class WordChain
     puts "あなたの勝ちです！"
     puts "========================================"
     exit
-  end
-
-  def user_timeout
-    puts "ターイムアウト!"
-    user_lose
   end
 
   def user_lose

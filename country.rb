@@ -13,7 +13,7 @@ class Country
     @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
   end
 
-  def self.grab_on_behind
+  def self.choose_intentional
     countries = COUNTRIES.select { |c| c[0] == last_char }
     countries.sample
   end
@@ -22,8 +22,8 @@ class Country
     COUNTRIES.find { |c| c == country }
   end
 
-  def self.last_letter_fail?(selected_country)
-    selected_country[-1] == "ン"
+  def self.last_letter_fail?(country)
+    country[-1] == "ン"
   end
 
   def self.duplicate?
