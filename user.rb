@@ -1,7 +1,7 @@
 class User
   KATAKANA = /\A(?:\p{Katakana}|[ー・]|)+\z/
 
-  def action
+  def fielding
     Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
     begin
       answer

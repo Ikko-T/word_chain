@@ -1,7 +1,7 @@
 class Shisa
   include Instruction
 
-  def action(count)
+  def batting(count)
     if count == 1
       initial_answer(count)
     else
@@ -18,15 +18,14 @@ class Shisa
 
   def initial_answer(count)
     puts "***#{count}ターン目***"
-    country = come_up
-    validate_last_letter(country)
-    validate_duplication(country)
-    country
+    come_up
   end
 
   def come_up
     country = Country.choose_random
     Country.insert_history_record(country)
+    validate_last_letter(country)
+    validate_duplication(country)
     puts "シーサー: #{country}"
     puts "========================================"
     country
@@ -35,20 +34,19 @@ class Shisa
   def answer(count)
     Timeout.timeout(20) do
       puts "***#{count}ターン目***"
-      country = think
-      validate_last_letter(country)
-      validate_duplication(country)
-      country
+      thinking
     end
   end
 
-  def think
+  def thinking
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
     country = Country.choose_intentional
     Country.insert_history_record(country)
     give_up if country.nil?
+    validate_last_letter(country)
+    validate_duplication(country)
     puts "#{country}"
     puts "========================================"
     country

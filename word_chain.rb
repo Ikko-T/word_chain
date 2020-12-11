@@ -8,8 +8,8 @@ class WordChain
     # shisa.greet
     loop do
       @count += 1
-      shisa.action(@count)
-      user.action
+      shisa.batting(@count)
+      user.fielding
     end
   end
 
