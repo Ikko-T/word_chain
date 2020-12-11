@@ -45,11 +45,11 @@ class Shisa
     puts "シーサー考え中、、、"
     print "シーサー: "
     sleep(rand(1..21))
-    answer = Country.grab_on_behind
-    Country.insert_history_record(answer)
-    give_up if answer.nil?
-    puts "#{answer}"
+    country_name = Country.grab_on_behind
+    Country.insert_history_record(country_name)
+    give_up if country_name.nil?
+    puts "#{country_name}"
     puts "========================================"
-    answer
+    country_name
   end
 end

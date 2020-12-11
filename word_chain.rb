@@ -13,17 +13,6 @@ class WordChain
     end
   end
 
-  def judge_user(country)
-    if Country.last_letter_fail?(country)
-      puts "語尾が「ン」で終わっています。"
-      user_lose
-    end
-    if Country.duplicate?(answer)
-      puts "すでに回答済です。"
-      user_lose
-    end
-  end
-
   def validate_last_letter(country)
     puts "語尾が「ン」で終わっています。" if Country.last_letter_fail?(country)
     country
@@ -62,5 +51,4 @@ class WordChain
     puts "========================================"
     exit
   end
-
 end

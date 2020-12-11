@@ -18,7 +18,9 @@ class User
       country_name = come_up
       redo unless letter_check(country_name) && exist?(country, country_name) && Country.last_char == country_name[0]
       Country.insert_history_record(country_name)
-      judge_user(country_name)
+      validate_last_letter(country_name)
+      validate_duplication(country_name)
+      country_name
     end
   end
 
