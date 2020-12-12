@@ -1,6 +1,7 @@
 class Country
+  COUNTRIES = File.read("./country.txt").split
+
   class << self
-    COUNTRIES = File.read("./country.txt").split
 
     def choose_random
       COUNTRIES.sample
@@ -14,7 +15,7 @@ class Country
       @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
     end
 
-    def choose_intentional
+    def choose_given
       countries = COUNTRIES.select { |c| c[0] == last_char }
       countries.sample
     end
