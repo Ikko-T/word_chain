@@ -13,6 +13,9 @@ class WordChain
     end
   end
 
+  private
+  
+
   def validate_last_letter(country)
     puts "語尾が「ン」で終わっています。" if Country.last_letter_fail?(country)
     country
@@ -29,21 +32,34 @@ class WordChain
   end
 
   def timeout
-    puts "ターイムアウト!"
-    shisa_lose || user_lose
+    if timeout.class == "Shisa"
+      Shisa::Timeout.lose
+    else time.class == "User"
+      User::Timeout.lose
+    end
   end
 
-  def shisa_lose
-    sleep 1.0
-    puts "あなたの勝ちです！"
-    puts "========================================"
-    exit
+  module Shisa
+    class Timeout
+      def lose
+        puts "ターイムアウト!"
+        sleep 1.0
+        puts "あなたの勝ちです！"
+        puts "========================================"
+        exit
+      end
+    end
   end
 
-  def user_lose
-    sleep 1.0
-    puts "あなたの負けです！"
-    puts "========================================"
-    exit
+  module User
+    class Timeout
+      def lose
+        puts "ターイムアウト！"
+        sleep 1.0
+        puts "あなたの負けです！"
+        puts "========================================"
+        exit
+      end
+    end
   end
 end
