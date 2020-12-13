@@ -2,6 +2,9 @@ class Country
   COUNTRIES = File.read("./country.txt").split
 
   class << self
+    def record
+      @history_record = []
+    end
 
     def choose_random
       COUNTRIES.sample
@@ -15,20 +18,20 @@ class Country
       @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
     end
 
-    def choose_given
+    def grab_on_behind
       countries = COUNTRIES.select { |c| c[0] == last_char }
       countries.sample
     end
 
-    def search_same(country)
-      COUNTRIES.find { |c| c == country }
+    def equal(country)
+      COUNTRIES.any? { |c| c == country }
     end
 
-    def last_letter_fail?(country)
+    def last_letter_fail(country)
       country[-1] == "ン"
     end
 
-    def duplicate?
+    def duplicate
       @history_record.count - @history_record.uniq.count > 0
     end
   end
