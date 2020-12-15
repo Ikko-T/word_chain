@@ -3,11 +3,11 @@ class WordChain
 
   def initialize
     @count = 0
-    Country.record
+    @history_record = []
   end
 
   def game_start(shisa, user)
-    shisa.greet
+    # shisa.greet
     loop do
       batting(shisa)
       fielding(user)
@@ -21,18 +21,17 @@ class WordChain
     puts "***#{@count += 1}ターン目***"
     if @count == 1
       @country = shisa.initial_answer
-      Country.insert_history_record(@country)
-      win_or_lose if validate_last_letter
-      win_or_lose if validate_duplication
+      @history_record << @country
+      @country_last_letter = get_last_letter
+      win_or_lose if end_with_N?
     else
       Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
       begin
         Timeout.timeout(20) do
-          @country = shisa.answer
-          Country.insert_history_record(@country)
-          give_up if @country.nil?
-          win_or_lose if validate_last_letter
-          win_or_lose if validate_duplication
+          @country = shisa.answer(@country_last_letter)
+          @history_record << @country
+          @country_last_letter = get_last_letter
+          win_or_lose if country_nil? || end_with_N? || duplication?
         end
       rescue Timeout::Error
         timeout
@@ -45,55 +44,58 @@ class WordChain
     Timeout.timeout(20) {|lim| "Time limit = #{lim}" }
     begin
       Timeout.timeout(20) do
+        puts "「#{@country_last_letter}」から始まる国名を入力して下さい。"
         @country = user.answer
-        redo unless letter_check && exist && Country.last_char == @country[0]
-        Country.insert_history_record(@country)
-        win_or_lose if validate_last_letter
-        win_or_lose if validate_duplication
+        redo unless is_hiragana_katakana? && exist? && last_meet_first?
+        @history_record << @country
+        @country_last_letter = get_last_letter
+        win_or_lose if end_with_N? || duplication?
       end
     rescue Timeout::Error
       timeout
     end
   end
 
-  def letter_check
-    hiragana_katakana = @country =~ KATAKANA
-    unless hiragana_katakana
+  def get_last_letter
+    Country.last_char(@country) unless @country.nil?
+  end
+
+  def is_hiragana_katakana?
+    correct = @country =~ KATAKANA
+    unless correct
       puts "ひらがな又はカタカナで入力してください。"
       puts "========================================"
     end
-    hiragana_katakana
+    correct
   end
 
-  def exist
-    country = Country.equal(@country)
-    unless country
+  def exist?
+    correct = Country.equal(@country)
+    unless correct
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
       puts "========================================"
     end
-    country
+    correct
   end
 
-  def validate_last_letter
-    last_letter = Country.last_letter_fail(@country)
-    if last_letter
-      puts "語尾が「ン」で終わっています。"
-    end
-    last_letter
+  def last_meet_first?
+    correct = @country_last_letter == @country[0]
   end
 
-  def validate_duplication
-    duplication = Country.duplicate
-    if duplication
-      puts "すでに回答済です。"
-    end
-    duplication
+  def end_with_N?
+    correct = @country_last_letter == "ン"
+    puts "語尾が「ン」で終わっています。" if correct
   end
 
-  def give_up
-    puts "頭に浮かばないさぁ〜、降参するさぁ〜"
-    win_or_lose
+  def duplication?
+    correct = Country.duplicate(@history_record)
+    puts "すでに回答済です。" if correct
+  end
+
+  def country_nil?
+    correct = @country.nil?
+    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if correct
   end
 
   def timeout
