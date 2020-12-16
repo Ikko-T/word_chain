@@ -31,7 +31,7 @@ class WordChain
           @country = shisa.answer(@country_last_letter)
           @history_record << @country
           @country_last_letter = get_last_letter
-          win_or_lose if country_nil? || end_with_N? || duplication?
+          win_or_lose if country_nil? || end_with_N? || duplicate?
         end
       rescue Timeout::Error
         timeout
@@ -49,7 +49,7 @@ class WordChain
         redo unless is_hiragana_katakana? && exist? && last_meet_first?
         @history_record << @country
         @country_last_letter = get_last_letter
-        win_or_lose if end_with_N? || duplication?
+        win_or_lose if end_with_N? || duplicate?
       end
     rescue Timeout::Error
       timeout
@@ -61,41 +61,41 @@ class WordChain
   end
 
   def is_hiragana_katakana?
-    correct = @country =~ KATAKANA
-    unless correct
+    is_fine = @country =~ KATAKANA
+    unless is_fine
       puts "ひらがな又はカタカナで入力してください。"
       puts "========================================"
     end
-    correct
+    is_fine
   end
 
   def exist?
-    correct = Country.equal(@country)
-    unless correct
+    is_fine = Country.equal(@country)
+    unless is_fine
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
       puts "========================================"
     end
-    correct
+    is_fine
   end
 
   def last_meet_first?
-    correct = @country_last_letter == @country[0]
+    is_fine = @country_last_letter == @country[0]
   end
 
   def end_with_N?
-    correct = @country_last_letter == "ン"
-    puts "語尾が「ン」で終わっています。" if correct
+    is_fine = @country_last_letter == "ン"
+    puts "語尾が「ン」で終わっています。" if is_fine
   end
 
-  def duplication?
-    correct = Country.duplicate(@history_record)
-    puts "すでに回答済です。" if correct
+  def duplicate?
+    is_fine = Country.duplicate(@history_record)
+    puts "すでに回答済です。" if is_fine
   end
 
   def country_nil?
-    correct = @country.nil?
-    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if correct
+    is_fine = @country.nil?
+    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if is_fine
   end
 
   def timeout
