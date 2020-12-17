@@ -1,36 +1,27 @@
 class Country
   COUNTRIES = File.read("./country.txt").split
 
-  def initialize
-    @history_record = []
-  end
+  class << self
+    def random
+      COUNTRIES.sample
+    end
 
-  def choose_random
-    COUNTRIES.sample
-  end
+    def last_char(country)
+      country.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
+    end
 
-  def insert_history_record(country)
-    @history_record << country
-  end
+    def grab_on_behind(country)
+      country_last_letter = last_char(country)
+      countries = COUNTRIES.select { |c| c[0] == country_last_letter }
+      countries.sample
+    end
 
-  def last_char
-    @history_record.last.delete('ー-').tr('ァィゥェォッャュョヮ', 'アイウエオツヤユヨワ')[-1]
-  end
+    def equal(country)
+      COUNTRIES.any? { |c| c == country }
+    end
 
-  def choose_answer
-    countries = COUNTRIES.select { |c| c[0] == last_char }
-    countries.sample
-  end
-
-  def confirm(selected_country)
-    COUNTRIES.find { |c| c == selected_country }
-  end
-
-  def last_letter_fail?(selected_country)
-    selected_country[-1] == "ン"
-  end
-
-  def duplicate?
-    @history_record.count - @history_record.uniq.count > 0
+    def duplicate(countries)
+      countries.count - countries.uniq.count > 0
+    end
   end
 end

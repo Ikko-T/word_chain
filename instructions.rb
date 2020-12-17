@@ -20,7 +20,7 @@ module Instruction
       "語尾が「ン」で終った場合、",
       "同じ国名を二度繰り返した場合、",
       "または制限時間20秒を過ぎたら負けです。",
-      shisa_start
+      shisa_ready
     ]
   end
 
@@ -32,7 +32,7 @@ module Instruction
     TEXT
   end
 
-  def shisa_start
+  def shisa_ready
     <<~TEXT
     #{"----------------------------------------"}
     それでは、わたくしシーサーから始めます！
