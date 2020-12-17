@@ -7,7 +7,7 @@ class WordChain
   end
 
   def game_start(shisa, user)
-    # shisa.greet
+    shisa.greet
     loop do
       batting(shisa)
       fielding(user)
@@ -61,41 +61,44 @@ class WordChain
   end
 
   def is_hiragana_katakana?
-    is_fine = @country =~ KATAKANA
-    unless is_fine
+    is_valid = @country =~ KATAKANA
+    unless is_valid
       puts "ひらがな又はカタカナで入力してください。"
       puts "========================================"
     end
-    is_fine
+    is_valid
   end
 
   def exist?
-    is_fine = Country.equal(@country)
-    unless is_fine
+    is_valid = Country.equal(@country)
+    unless is_valid
       puts "そのような国名はありません。"
       puts "正しい国名を入力してください。"
       puts "========================================"
     end
-    is_fine
+    is_valid
   end
 
   def last_meet_first?
-    is_fine = @country_last_letter == @country[0]
+    is_valid = @country_last_letter == @country[0]
   end
 
   def end_with_N?
-    is_fine = @country_last_letter == "ン"
-    puts "語尾が「ン」で終わっています。" if is_fine
+    is_valid = @country_last_letter == "ン"
+    puts "語尾が「ン」で終わっています。" if is_valid
+    is_valid
   end
 
   def duplicate?
-    is_fine = Country.duplicate(@history_record)
-    puts "すでに回答済です。" if is_fine
+    is_valid = Country.duplicate(@history_record)
+    puts "すでに回答済です。" if is_valid
+    is_valid
   end
 
   def country_nil?
-    is_fine = @country.nil?
-    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if is_fine
+    is_valid = @country.nil?
+    puts "頭に浮かばないさぁ〜、降参するさぁ〜" if is_valid
+    is_valid
   end
 
   def timeout
@@ -104,9 +107,9 @@ class WordChain
   end
 
   def win_or_lose
-    judge = @turn == "shisa" ? "勝ち" : "負け"
+    judgement = @turn == "shisa" ? "勝ち" : "負け"
     sleep 1.0
-    puts "あなたの#{judge}です！"
+    puts "あなたの#{judgement}です！"
     puts "========================================"
     exit
   end
