@@ -28,11 +28,11 @@ Ruby対話型国名しりとりゲーム
 ---
 クローンします。
 ```
-$ git clone https://github.com/Ikko-T/Word_Chain.git
+$ git clone https://github.com/Ikko-T/word_chain.git
 ```
-`Word_Chain`ディレクトリへ移動します。
+`word_chain`ディレクトリへ移動します。
 ```
-$ cd Word_Chain
+$ cd word_chain
 ```
 下記コマンド実行でゲームが開始します。
 ```
